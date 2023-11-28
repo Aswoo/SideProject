@@ -1,6 +1,7 @@
 
 plugins {
     id("sdutest.android.application")
+    id("sdutest.android.compose")
     id("com.google.android.gms.oss-licenses-plugin")
 }
 
@@ -27,7 +28,27 @@ android {
 
 dependencies {
 
+    implementation(projects.core.designsystem)
+    implementation(projects.core.data)
+    implementation(projects.core.network)
+
     implementation(projects.feature.main)
+    implementation(projects.feature.bookmarks)
+
+    implementation(libs.coil.kt)
+
+    implementation(libs.hilt.navigation.compose)
+    implementation(platform(libs.androidx.compose.bom))
+//    implementation(libs.ui)
+//    implementation(libs.ui.graphics)
+    implementation(libs.androidx.compose.ui)
+    implementation(libs.androidx.compose.material3)
+    implementation(libs.androidx.compose.navigation)
+    implementation(libs.androidx.activity.compose)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.compose.material3.windowSizeClass)
+
 //    implementation(libs.core.ktx)
 //    implementation(libs.lifecycle.runtime.ktx)
 //    implementation(libs.activity.compose)

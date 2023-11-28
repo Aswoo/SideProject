@@ -5,7 +5,7 @@ import com.example.sdutest.configureKotlinAndroid
 
 plugins {
     id("com.android.library")
-    id("droidknights.verify.detekt")
+    id("sdutest.verify.detekt")
 }
 
 configureKotlinAndroid()
