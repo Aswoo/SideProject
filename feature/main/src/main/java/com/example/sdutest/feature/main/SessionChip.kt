@@ -4,17 +4,16 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.res.stringResource
-import com.droidknights.app2023.core.designsystem.component.TextChip
-import com.example.sdutest.core.model.Room
-import com.example.sdutest.core.ui.textRes
+import com.example.sdutest.core.designsystem.component.TextChip
+import com.example.sdutest.core.model.pokemon.Version
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.toJavaLocalDateTime
 import java.time.format.DateTimeFormatter
 
 @Composable
-internal fun TrackChip(room: Room) {
+internal fun TrackChip(room: Version?) {
     TextChip(
-        text = stringResource(id = room.textRes),
+        text = room?.name.toString(),
         containerColor = MaterialTheme.colorScheme.secondaryContainer,
         labelColor = MaterialTheme.colorScheme.onSecondaryContainer,
     )

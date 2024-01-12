@@ -1,5 +1,6 @@
 plugins {
     id("sdutest.android.feature")
+    id("kotlinx-serialization")
 }
 
 android {

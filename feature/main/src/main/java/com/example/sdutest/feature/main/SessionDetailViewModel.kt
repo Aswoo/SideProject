@@ -4,17 +4,16 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.sdutest.core.domain.usecase.BookmarkSessionUseCase
 import com.example.sdutest.core.domain.usecase.GetBookmarkedSessionIdsUseCase
-import com.example.sdutest.core.domain.usecase.GetSessionUseCase
+import com.example.sdutest.core.domain.usecase.GetPokemonUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class SessionDetailViewModel @Inject constructor(
-    private val getSessionUseCase: GetSessionUseCase,
+    private val getPokemonUseCase: GetPokemonUseCase,
     private val getBookmarkedSessionIdsUseCase: GetBookmarkedSessionIdsUseCase,
     private val bookmarkSessionUseCase: BookmarkSessionUseCase,
 ) : ViewModel() {
@@ -28,23 +27,23 @@ class SessionDetailViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            combine(
-                sessionUiState,
-                getBookmarkedSessionIdsUseCase(),
-            ) { sessionUiState, bookmarkIds ->
-                when (sessionUiState) {
-                    is SessionDetailUiState.Loading -> sessionUiState
-                    is SessionDetailUiState.Success -> {
-                        sessionUiState.copy(bookmarked = bookmarkIds.contains(sessionUiState.session.id))
-                    }
-                }
-            }.collect { _sessionUiState.value = it }
+//            combine(
+//                sessionUiState,
+//                getBookmarkedSessionIdsUseCase(),
+//            ) { sessionUiState, bookmarkIds ->
+//                when (sessionUiState) {
+//                    is SessionDetailUiState.Loading -> sessionUiState
+//                    is SessionDetailUiState.Success -> {
+////                        sessionUiState.copy(bookmarked = bookmarkIds.contains(sessionUiState.session.id))
+//                    }
+//                }
+//            }.collect { _sessionUiState.value = it }
         }
     }
 
     fun fetchSession(sessionId: String) {
         viewModelScope.launch {
-            val session = getSessionUseCase(sessionId)
+            val session = getPokemonUseCase("ditto")
             _sessionUiState.value = SessionDetailUiState.Success(session)
         }
     }
@@ -56,7 +55,7 @@ class SessionDetailViewModel @Inject constructor(
         }
         viewModelScope.launch {
             val bookmark = uiState.bookmarked
-            bookmarkSessionUseCase(uiState.session.id, !bookmark)
+            bookmarkSessionUseCase(uiState.pokemonRes.id.toString(), !bookmark)
             _sessionUiEffect.value = SessionDetailEffect.ShowToastForBookmarkState(!bookmark)
         }
     }

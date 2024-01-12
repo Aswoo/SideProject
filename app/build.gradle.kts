@@ -31,6 +31,7 @@ dependencies {
     implementation(projects.core.designsystem)
     implementation(projects.core.data)
     implementation(projects.core.network)
+    implementation(projects.core.model)
 
     implementation(projects.feature.main)
     implementation(projects.feature.bookmarks)

@@ -1,5 +1,6 @@
 package com.example.sdutest.core.domain.usecase
 
+import com.example.sdutest.core.data.repository.DefaultSessionRepository
 import com.example.sdutest.core.data.repository.SessionRepository
 import com.example.sdutest.core.model.Session
 import javax.inject.Inject

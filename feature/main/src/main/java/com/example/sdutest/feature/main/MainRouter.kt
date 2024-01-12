@@ -4,14 +4,24 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.example.sdutest.core.model.Session
 
 @Composable
 internal fun MainRouter(
-    onTopicClick: (String) -> Unit,
+    onBackClick: () -> Unit,
+    onSessionClick: (Session) -> Unit,
     onShowSnackbar: suspend (String, String?) -> Boolean,
+    sessionViewModel: SessionViewModel = hiltViewModel(),
 ) {
-    Column(modifier = Modifier.fillMaxSize()) {
-        Text(text = "BookMarkers")
-    }
+    val sessionUiState by sessionViewModel.uiState.collectAsStateWithLifecycle()
+    SessionScreen(
+        onBackClick = onBackClick,
+        onSessionClick = onSessionClick,
+        onShowSnackbar = onShowSnackbar,
+        sessionUiState = sessionUiState
+    )
 }

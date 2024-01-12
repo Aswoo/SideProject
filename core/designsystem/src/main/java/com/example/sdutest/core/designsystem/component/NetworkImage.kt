@@ -20,7 +20,7 @@ fun NetworkImage(
     contentDescription: String? = null,
 ) {
     AsyncImage(
-        model = { imageUrl },
+        model =  imageUrl.toString(),
         modifier = modifier,
         contentDescription = "",
     )

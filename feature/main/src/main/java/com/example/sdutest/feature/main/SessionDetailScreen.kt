@@ -4,6 +4,8 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -11,6 +13,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.systemBarsPadding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
@@ -29,28 +32,29 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.droidknights.app2023.core.designsystem.component.KnightsTopAppBar
-import com.droidknights.app2023.core.designsystem.component.TextChip
-import com.droidknights.app2023.core.designsystem.component.TopAppBarNavigationType
+import com.example.sdutest.core.designsystem.component.KnightsTopAppBar
+import com.example.sdutest.core.designsystem.component.TextChip
+import com.example.sdutest.core.designsystem.component.TopAppBarNavigationType
 import com.example.sdutest.core.designsystem.component.NetworkImage
 import com.example.sdutest.core.designsystem.theme.DarkGray
 import com.example.sdutest.core.designsystem.theme.KnightsTheme
 import com.example.sdutest.core.designsystem.theme.LightGray
-import com.example.sdutest.core.designsystem.theme.surfaceDim
 import com.example.sdutest.core.model.Level
 import com.example.sdutest.core.model.Room
 import com.example.sdutest.core.model.Session
 import com.example.sdutest.core.model.Speaker
 import com.example.sdutest.core.model.Tag
+import com.example.sdutest.core.model.pokemon.GameIndices
+import com.example.sdutest.core.model.pokemon.PokemonResponse
 import kotlinx.collections.immutable.PersistentList
 import kotlinx.collections.immutable.toPersistentList
 import kotlinx.coroutines.delay
@@ -76,7 +80,7 @@ internal fun SessionDetailScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(MaterialTheme.colorScheme.surfaceDim)
+            .background(androidx.compose.ui.graphics.Color.White)
             .systemBarsPadding()
             .verticalScroll(scrollState),
     ) {
@@ -131,7 +135,7 @@ private fun SessionDetailTopAppBar(
 private fun SessionDetailContent(uiState: SessionDetailUiState) {
     when (uiState) {
         is SessionDetailUiState.Loading -> SessionDetailLoading()
-        is SessionDetailUiState.Success -> SessionDetailContent(uiState.session)
+        is SessionDetailUiState.Success -> SessionDetailContent(uiState.pokemonRes)
     }
 }
 
@@ -143,51 +147,75 @@ private fun SessionDetailLoading() {
 }
 
 @Composable
-private fun SessionDetailContent(session: Session) {
+private fun SessionDetailContent(session: PokemonResponse) {
     Column(
         modifier = Modifier
             .fillMaxSize()
             .padding(horizontal = 16.dp)
     ) {
-        SessionDetailTitle(title = session.title, modifier = Modifier.padding(top = 8.dp))
+        val url = session.sprites!!.backDefault
+        SessionDetailTitle(title = session.name.toString(), modifier = Modifier.padding(top = 8.dp))
         Spacer(modifier = Modifier.height(8.dp))
-        SessionChips(session = session)
-
-        if (session.content.isNotEmpty()) {
+        Row {
+            NetworkImage(
+                imageUrl = session.sprites!!.frontDefault,
+                modifier = Modifier
+                    .size(200.dp)
+                ,
+                contentScale = ContentScale.FillBounds,
+                placeholder = null,
+            )
+            Spacer(modifier = Modifier.width(16.dp))
+            NetworkImage(
+                imageUrl = session.sprites!!.backDefault,
+                modifier = Modifier
+                    .size(200.dp)
+                ,
+                contentScale = ContentScale.FillBounds,
+                placeholder = null,
+            )
+        }
+        SessionChips(session = session.gameIndices)
+        if (session.id != null) {
             Spacer(modifier = Modifier.height(16.dp))
-            SessionOverview(content = session.content)
+            SessionOverview(content = session.name.toString())
         }
         Spacer(modifier = Modifier.height(40.dp))
+
         Divider(thickness = 1.dp, color = MaterialTheme.colorScheme.outline)
         Spacer(modifier = Modifier.height(40.dp))
 
-        SessionDetailSpeaker(session.speakers.first())
+//        SessionDetailSpeaker(session.types.first().type.name)
     }
 }
 
+
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
-private fun SessionChips(session: Session) {
-    Row(
+private fun SessionChips(session: List<GameIndices>) {
+    val tagList = session.map { it.version!!.name }.toPersistentList()
+    FlowRow(
         horizontalArrangement = Arrangement.spacedBy(8.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        TrackChip(room = session.room)
-        TimeChip(dateTime = session.startTime)
-        TagChips(tags = session.tags.toPersistentList())
+//        TrackChip(room = session.version)
+//        TimeChip(dateTime = session.startTime)
+        TagChips(tags = tagList)
     }
 }
 
 @Composable
-private fun TagChips(tags: PersistentList<Tag>) {
+private fun TagChips(tags: PersistentList<String?>) {
+
     tags.forEach { tag ->
-        TagChip(tag = tag)
+        TagChip(tag = tag.toString())
     }
 }
 
 @Composable
-private fun TagChip(tag: Tag) {
+private fun TagChip(tag: String) {
     TextChip(
-        text = tag.name,
+        text = tag,
         containerColor = DarkGray,
         labelColor = LightGray,
     )
@@ -332,15 +360,15 @@ private fun SessionDetailTopAppBarPreview() {
     }
 }
 
-@Preview
-@Composable
-private fun SessionDetailContentPreview(
-    @PreviewParameter(SessionDetailContentProvider::class) session: Session
-) {
-    KnightsTheme {
-        SessionDetailContent(session = session)
-    }
-}
+//@Preview
+//@Composable
+//private fun SessionDetailContentPreview(
+//    @PreviewParameter(SessionDetailContentProvider::class) session: Session
+//) {
+//    KnightsTheme {
+//        SessionDetailContent(session = session)
+//    }
+//}
 
 @Preview
 @Composable

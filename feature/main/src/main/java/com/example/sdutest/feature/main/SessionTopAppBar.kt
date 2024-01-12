@@ -38,8 +38,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
-import com.droidknights.app2023.core.designsystem.component.KnightsTopAppBar
-import com.droidknights.app2023.core.designsystem.component.TopAppBarNavigationType
+import com.example.sdutest.core.designsystem.component.KnightsTopAppBar
+import com.example.sdutest.core.designsystem.component.TopAppBarNavigationType
 import com.example.sdutest.core.designsystem.theme.KnightsTheme
 import com.example.sdutest.core.designsystem.theme.surfaceDim
 import com.example.sdutest.core.model.Room

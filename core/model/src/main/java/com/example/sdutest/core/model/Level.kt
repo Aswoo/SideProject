@@ -4,5 +4,5 @@ enum class Level {
     ETC,
     BASIC,
     INTERMEDIATE,
-    ADVANCED
+    ADVANCED,
 }

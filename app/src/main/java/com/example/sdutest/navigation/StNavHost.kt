@@ -16,14 +16,17 @@
 
 package com.example.sdutest.navigation
 
+import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import com.example.sdutest.feature.bookmarks.navigation.bookmarksScreen
-import com.example.sdutest.feature.main.navigation.mainRoute
+import com.example.sdutest.feature.bookmarks.navigation.navigateToBookmarks
+import com.example.sdutest.feature.main.navigation.SessionRoute
 import com.example.sdutest.feature.main.navigation.mainScreen
+import com.example.sdutest.feature.main.navigation.navigateSessionDetail
 
 
 /**
@@ -35,10 +38,10 @@ import com.example.sdutest.feature.main.navigation.mainScreen
  */
 @Composable
 fun NiaNavHost(
-    navController : NavHostController,
+    navController: NavHostController,
     onShowSnackbar: suspend (String, String?) -> Boolean,
     modifier: Modifier = Modifier,
-    startDestination: String = mainRoute,
+    startDestination: String = SessionRoute.route,
 ) {
     NavHost(
         navController = navController,
@@ -47,11 +50,14 @@ fun NiaNavHost(
     ) {
 //        forYouScreen(onTopicClick = navController::navigateToTopic)
         bookmarksScreen(
-            onTopicClick =  {},
+            onTopicClick = {},
             onShowSnackbar = onShowSnackbar,
         )
         mainScreen(
-            onTopicClick = {},
+            onBackClick = {},
+            onSessionClick = {
+                navController.navigateSessionDetail(it.content)
+            },
             onShowSnackbar = onShowSnackbar,
         )
 //        searchScreen(

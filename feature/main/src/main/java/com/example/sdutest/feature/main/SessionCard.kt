@@ -23,7 +23,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.droidknights.app2023.core.designsystem.component.KnightsCard
-import com.droidknights.app2023.core.designsystem.component.TextChip
+import com.example.sdutest.core.designsystem.component.TextChip
 import com.example.sdutest.core.designsystem.component.NetworkImage
 import com.example.sdutest.core.designsystem.theme.DarkGray
 import com.example.sdutest.core.designsystem.theme.KnightsTheme
@@ -128,7 +128,7 @@ private fun SessionTrackInfo(
     Row(
         modifier = modifier
     ) {
-        TrackChip(room = session.room)
+//        TrackChip(room = "version")
         Spacer(modifier = Modifier.width(8.dp))
         TimeChip(dateTime = session.startTime)
     }

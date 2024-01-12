@@ -34,17 +34,18 @@ import kotlinx.coroutines.flow.collectLatest
 internal fun SessionScreen(
     onBackClick: () -> Unit,
     onSessionClick: (Session) -> Unit,
-    onShowErrorSnackBar: (throwable: Throwable?) -> Unit,
-    sessionViewModel: SessionViewModel = hiltViewModel(),
+    onShowSnackbar: suspend (String, String?) -> Boolean,
+    sessionUiState: SessionUiState
 ) {
-    val sessionUiState by sessionViewModel.uiState.collectAsStateWithLifecycle()
+//    val sessionUiState by sessionViewModel.uiState.collectAsStateWithLifecycle()
     val sessionState = (sessionUiState as? SessionUiState.Sessions)?.sessions?.let { sessions ->
-            rememberSessionState(sessions = sessions) // SessionUiState.Sessions
-        } ?: rememberSessionState(sessions = persistentListOf()) // SessionUiState.Loading, SessionUiState.Error
-
-    LaunchedEffect(true) {
-        sessionViewModel.errorFlow.collectLatest { throwable -> onShowErrorSnackBar(throwable) }
+        rememberSessionState(sessions = sessions) // SessionUiState.Sessions
     }
+        ?: rememberSessionState(sessions = persistentListOf()) // SessionUiState.Loading, SessionUiState.Error
+
+//    LaunchedEffect(true) {
+//        sessionViewModel.errorFlow.collectLatest { throwable -> onShowErrorSnackBar(throwable) }
+//    }
 
     Box(modifier = Modifier.fillMaxSize()) {
         SessionTopAppBar(

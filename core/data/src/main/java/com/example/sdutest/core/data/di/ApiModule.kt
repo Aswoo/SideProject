@@ -37,7 +37,7 @@ internal object ApiModule {
         converterFactory: Converter.Factory,
     ): GithubApi {
         return Retrofit.Builder()
-            .baseUrl("https://api.github.com/")
+            .baseUrl("https://pokeapi.co/api/v2/")
             .addConverterFactory(converterFactory)
             .client(okHttpClient).build()
             .create(GithubApi::class.java)

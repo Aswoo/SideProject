@@ -1,7 +1,9 @@
 package com.example.sdutest.core.model
 
 import kotlinx.datetime.LocalDateTime
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class Session(
     val id: String,
     val title: String,
@@ -12,5 +14,5 @@ data class Session(
     val room: Room,
     val startTime: LocalDateTime,
     val endTime: LocalDateTime,
-    val isBookmarked: Boolean
+    val isBookmarked: Boolean = false
 )

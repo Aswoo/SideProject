@@ -1,4 +1,4 @@
-package com.droidknights.app2023.core.designsystem.component
+package com.example.sdutest.core.designsystem.component
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

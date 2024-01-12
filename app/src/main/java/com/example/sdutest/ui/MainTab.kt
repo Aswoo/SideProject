@@ -1,8 +1,9 @@
 package com.example.sdutest.ui
 
 import com.example.sdutest.R
-import com.example.sdutest.feature.main.navigation.mainRoute
+import com.example.sdutest.feature.main.navigation.SessionRoute.route
 import com.example.sdutest.feature.bookmarks.navigation.bookmarksRoute
+import com.example.sdutest.feature.main.navigation.SessionRoute
 
 
 internal enum class MainTab(
@@ -13,17 +14,17 @@ internal enum class MainTab(
     SETTING(
         iconResId = R.drawable.ic_setting,
         contentDescription = "설정",
-        mainRoute,
+        SessionRoute.route,
     ),
     HOME(
         iconResId = R.drawable.ic_home,
         contentDescription = "홈",
-        mainRoute,
+        SessionRoute.route,
     ),
     BOOKMARK(
         iconResId = R.drawable.ic_bookmark,
         contentDescription = "북마크",
-        bookmarksRoute,
+        SessionRoute.route,
     );
 
     companion object {

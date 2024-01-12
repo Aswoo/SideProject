@@ -1,5 +1,6 @@
-package com.droidknights.app2023.core.designsystem.component
+package com.example.sdutest.core.designsystem.component
 
+import android.R
 import androidx.annotation.StringRes
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -34,7 +35,7 @@ fun KnightsTopAppBar(
     modifier: Modifier = Modifier,
     navigationType: TopAppBarNavigationType = TopAppBarNavigationType.Back,
     contentColor: Color = MaterialTheme.colorScheme.onSurface,
-    containerColor: Color = MaterialTheme.colorScheme.surfaceDim,
+    containerColor: Color = Color.White,
     actionButtons: @Composable () -> Unit = {},
     onNavigationClick: () -> Unit = {},
 ) {
@@ -89,7 +90,7 @@ enum class TopAppBarNavigationType { Back, Close }
 @Composable
 private fun KnightsTopAppBarPreviewBack() {
     KnightsTopAppBar(
-        titleRes = android.R.string.untitled,
+        titleRes = R.string.untitled,
         navigationType = TopAppBarNavigationType.Back,
         navigationIconContentDescription = "Navigation icon"
     )
@@ -99,7 +100,7 @@ private fun KnightsTopAppBarPreviewBack() {
 @Composable
 private fun KnightsTopAppBarPreviewClose() {
     KnightsTopAppBar(
-        titleRes = android.R.string.untitled,
+        titleRes = R.string.untitled,
         navigationType = TopAppBarNavigationType.Close,
         navigationIconContentDescription = "Navigation icon"
     )

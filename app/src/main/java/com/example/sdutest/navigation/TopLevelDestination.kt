@@ -37,12 +37,12 @@ enum class TopLevelDestination(
 //        iconTextId = forYouR.string.for_you,
 //        titleTextId = R.string.app_name,
 //    ),
-    BOOKMARKS(
-        selectedIcon = StIcons.Bookmarks,
-        unselectedIcon = StIcons.BookmarksBorder,
-        iconTextId = bookmarksR.string.saved,
-        titleTextId = bookmarksR.string.saved,
-    ),
+//    BOOKMARKS(
+//        selectedIcon = StIcons.Bookmarks,
+//        unselectedIcon = StIcons.BookmarksBorder,
+//        iconTextId = bookmarksR.string.saved,
+//        titleTextId = bookmarksR.string.saved,
+//    ),
 //    INTERESTS(
 //        selectedIcon = StIcons.Grid3x3,
 //        unselectedIcon = StIcons.Grid3x3,
