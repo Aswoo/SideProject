@@ -10,6 +10,7 @@ import com.example.sdutest.core.data.api.fake.FakeAssetManager
 import com.example.sdutest.core.data.mapper.toData
 import com.example.sdutest.core.data.model.SessionResponse
 import com.example.sdutest.core.datastore.datasource.SessionPreferencesDataSource
+import com.example.sdutest.core.model.PokeSession
 import com.example.sdutest.core.model.Session
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
@@ -27,19 +28,19 @@ public class DefaultSessionRepository @Inject constructor(
     private val sessionDataSource: SessionPreferencesDataSource,
     private val assets: FakeAssetManager,
 ) : SessionRepository {
-    private var cachedSessions: List<Session> = emptyList()
+    private var cachedSessions: List<PokeSession> = emptyList()
 
     private val bookmarkIds: Flow<Set<String>> = sessionDataSource.bookmarkedSession
 
     @OptIn(ExperimentalSerializationApi::class)
-    override suspend fun getSessions(): List<Session> {
+    override suspend fun getSessions(): List<PokeSession> {
         return withContext(ioDispatcher) {
             val data = assets.open(TOPICS_ASSET)
             data.use(networkJson::decodeFromStream)
         }
     }
 
-    override suspend fun getSession(sessionId: String): Session {
+    override suspend fun getSession(sessionId: String): PokeSession {
         val cachedSession = cachedSessions.find { it.id == sessionId }
         if (cachedSession != null) {
             return cachedSession
@@ -66,6 +67,6 @@ public class DefaultSessionRepository @Inject constructor(
 
     companion object {
         private const val NEWS_ASSET = "news.json"
-        private const val TOPICS_ASSET = "sessions.json"
+        private const val TOPICS_ASSET = "poke_sessions.json"
     }
 }

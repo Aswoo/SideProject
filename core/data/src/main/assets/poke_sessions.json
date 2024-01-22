@@ -1,0 +1,66 @@
+[
+{
+  "id": "1",
+  "name": "이상해씨",
+
+"content" : "태어나서부터 얼마 동안은 등의 씨앗으로부터 영양을 공급받아 크게 성장한다.",
+
+  "types": [
+    "풀","독"  ],
+  "weight": 6.9,
+  "height" : 0.7,
+"category" : "씨앗 포켓몬",
+"sex" : ["남","여"],
+
+"image" : "https://data1.pokemonkorea.co.kr/newdata/pokedex/full/000101.png"}
+
+,
+
+{
+  "id": "4",
+  "name": "파이리",
+
+"content" : "파이리 꼬리의 불꽃은 생명의 등불이다. 건강할 때는 불꽃도 강하게 타오른다.",
+
+  "types": [
+    "불꽃"
+  ],
+  "weight": 8.5,
+  "height" : 0.6,
+"category" : "도룡농 포켓몬",
+"sex" : ["남","여"],
+
+"image" : "https://data1.pokemonkorea.co.kr/newdata/pokedex/full/000401.png"},
+
+{
+  "id": "50",
+  "name": "디그다",
+
+"content" : "지하 1m 정도를 파고들어 가서 나무뿌리 등을 씹어 먹고 산다. 가끔 지상으로 얼굴을 내민다.",
+
+  "types": [
+    "땅"
+  ],
+  "weight": 0.8,
+  "height" : 0.2,
+"category" : "두더지 포켓몬",
+"sex" : ["남","여"],
+
+"image" : "https://data1.pokemonkorea.co.kr/newdata/pokedex/full/005001.png"},
+
+{
+  "id": "132",
+  "name": "메타몽","content" : "변신은 완벽하지만 웃는 바람에 힘이 빠지면 변신이 풀려 버리고 만다.",
+
+  "types": [
+    "노말"
+  ],
+  "weight": 0.3,
+  "height" : 0.7,
+"category" : "변신 포켓몬",
+"sex" : [],
+
+"image" : "https://data1.pokemonkorea.co.kr/newdata/pokedex/full/013201.png"}
+
+
+]
