@@ -17,5 +17,6 @@ internal fun PokeSessionResponse.toData(): PokeSession = PokeSession(
     category = this.category,
     content = this.content,
     image = this.image,
+    enName = this.name,
     isBookmarked = false
 )

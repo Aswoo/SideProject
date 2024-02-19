@@ -1,4 +1,4 @@
-package com.example.sdutest.feature.main
+package com.example.testing
 
 import org.junit.Test
 

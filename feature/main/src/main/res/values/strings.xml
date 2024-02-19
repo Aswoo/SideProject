@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="session_title">세션 목록</string>
+    <string name="poke_title">포켓몬 리스트</string>
 
-    <string name="session_category">카테고리</string>
+    <string name="poke_category">카테고리</string>
     <string name="session_time_fmt">HH:mm 발표</string>
     
     <string name="session_detail_title">세션 상세 정보</string>

@@ -14,6 +14,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.rememberNavController
+import com.example.sdutest.core.designsystem.theme.KnightsTheme
 import com.example.sdutest.navigation.NiaNavHost
 import com.example.sdutest.navigation.rememberMainNavigator
 import com.example.sdutest.ui.MainTab
@@ -31,13 +32,15 @@ class MainActivity : ComponentActivity() {
             val navigator = rememberMainNavigator(navController = rememberNavController())
             Scaffold(
                 content = { padding ->
-                    NiaNavHost(navController = navigator.navController, onShowSnackbar = { message, action ->
-                        snackbarHostState.showSnackbar(
-                            message = message,
-                            actionLabel = action,
-                            duration = SnackbarDuration.Short,
-                        ) == SnackbarResult.ActionPerformed
-                    }, modifier = Modifier.padding(padding))
+                    KnightsTheme(){
+                        NiaNavHost(navController = navigator.navController, onShowSnackbar = { message, action ->
+                            snackbarHostState.showSnackbar(
+                                message = message,
+                                actionLabel = action,
+                                duration = SnackbarDuration.Short,
+                            ) == SnackbarResult.ActionPerformed
+                        }, modifier = Modifier.padding(padding))
+                    }
                 }, bottomBar = {
                     StBottomBar(
                         visible = navigator.shouldShowBottomBar(),

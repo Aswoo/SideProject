@@ -30,21 +30,11 @@ class SessionViewModel @Inject constructor(
     private val _uiState = MutableStateFlow<SessionUiState>(SessionUiState.Loading)
     val uiState: StateFlow<SessionUiState> = _uiState.asStateFlow()
 
-    fun hi(){
-        viewModelScope.launch {
-            val list = getSessionsUseCase.wtf()
-        }
-    }
-
 
     init {
         viewModelScope.launch {
             val sessionsFlow = flow { emit(getSessionsUseCase()) }
             val bookmarkedIdsFlow = getBookmarkedSessionIdsUseCase()
-
-            val list = getSessionsUseCase.wtf()
-
-            Log.d("HI","dd")
 
             sessionsFlow.combine(bookmarkedIdsFlow) { sessions, bookmarkedIds ->
                                               val enhancedSessions = sessions.map { session ->
@@ -56,7 +46,6 @@ class SessionViewModel @Inject constructor(
             }.catch { throwable ->
                 _errorFlow.emit(throwable)
             }.collect { combinedUiState ->
-                Log.d("CIVAL",combinedUiState.sessions.toString())
                 _uiState.value = combinedUiState
             }
         }

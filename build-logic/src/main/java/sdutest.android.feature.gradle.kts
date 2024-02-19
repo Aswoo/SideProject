@@ -22,7 +22,7 @@ dependencies {
 //    implementation(project(":core:navigation"))
     implementation(project(":core:network"))
     implementation(project(":core:ui"))
-//    testImplementation(project(":core:testing"))
+    testImplementation(project(":core:testing"))
 
     val libs = project.extensions.libs
     implementation(libs.findLibrary("hilt.navigation.compose").get())

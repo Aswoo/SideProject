@@ -56,7 +56,7 @@ fun NiaNavHost(
         mainScreen(
             onBackClick = {},
             onSessionClick = {
-                navController.navigateSessionDetail(it.content)
+                navController.navigateSessionDetail(it.enName)
             },
             onShowSnackbar = onShowSnackbar,
         )

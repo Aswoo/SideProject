@@ -29,6 +29,7 @@ import com.example.sdutest.core.designsystem.theme.DarkGray
 import com.example.sdutest.core.designsystem.theme.KnightsTheme
 import com.example.sdutest.core.designsystem.theme.LightGray
 import com.example.sdutest.core.model.Level
+import com.example.sdutest.core.model.PokeSession
 import com.example.sdutest.core.model.Room
 import com.example.sdutest.core.model.Session
 import com.example.sdutest.core.model.Speaker
@@ -37,9 +38,9 @@ import kotlinx.datetime.LocalDateTime
 
 @Composable
 internal fun SessionCard(
-    session: Session,
+    session: PokeSession,
     modifier: Modifier = Modifier,
-    onSessionClick: (Session) -> Unit = { },
+    onSessionClick: (PokeSession) -> Unit = { },
 ) {
     if (session.content.isBlank()) {
         KnightsCard(
@@ -59,7 +60,7 @@ internal fun SessionCard(
 
 @Composable
 private fun SessionCardContent(
-    session: Session,
+    session: PokeSession,
     modifier: Modifier = Modifier,
 ) {
     Box(
@@ -77,18 +78,54 @@ private fun SessionCardContent(
         ) {
             SessionHeader(session)
             Spacer(modifier = Modifier.height(8.dp))
-            SessionTitle(session.title)
+            Row(modifier = Modifier.fillMaxWidth()) {
+
+                NetworkImage(imageUrl = session.image, modifier = Modifier.size(120.dp))
+                Spacer(modifier = Modifier.width(24.dp))
+                Column() {
+                    PokeId(session.id)
+                    Spacer(modifier = Modifier.height(6.dp))
+                    PokeName(session.name)
+                    Spacer(modifier = Modifier.height(6.dp))
+                    PokeInfo(session)
+                }
+
+            }
             Spacer(modifier = Modifier.height(12.dp))
-            SessionTrackInfo(session)
-            Spacer(modifier = Modifier.height(12.dp))
-            SessionSpeakers(session.speakers)
+//            SessionTrackInfo(session)
+//            Spacer(modifier = Modifier.height(12.dp))
+//            SessionSpeakers(session.speakers)
         }
     }
 }
 
 @Composable
+fun PokeInfo(session: PokeSession) {
+    PokeInfo("키",session.height.toString()+"m")
+    PokeInfo("몸무게",session.weight.toString()+"kg")
+}
+
+@Composable
+fun PokeInfo(title: String, body: String) {
+    Row() {
+        Text(
+            text = title,
+            style = KnightsTheme.typography.titleLargeB,
+            color = MaterialTheme.colorScheme.onSecondaryContainer,
+        )
+        Spacer(modifier = Modifier.width(12.dp))
+        Text(
+            text = body,
+            style = KnightsTheme.typography.titleLargeB,
+            color = MaterialTheme.colorScheme.onSecondaryContainer,
+        )
+    }
+}
+
+
+@Composable
 private fun SessionHeader(
-    session: Session,
+    session: PokeSession,
     modifier: Modifier = Modifier,
 ) {
     Row(
@@ -96,10 +133,10 @@ private fun SessionHeader(
         verticalAlignment = Alignment.CenterVertically
     ) {
         CategoryChip()
-        session.tags.forEach { tag ->
+        session.types.forEach { type ->
             Spacer(modifier = Modifier.width(8.dp))
             Text(
-                text = tag.name,
+                text = type,
                 style = KnightsTheme.typography.labelLargeM,
                 color = DarkGray,
             )
@@ -108,7 +145,20 @@ private fun SessionHeader(
 }
 
 @Composable
-private fun SessionTitle(
+fun PokeId(
+    id: String,
+    modifier: Modifier = Modifier,
+) {
+    Text(
+        text = "No.$id",
+        style = KnightsTheme.typography.titleMediumB,
+        color = MaterialTheme.colorScheme.onSurface,
+        modifier = modifier
+    )
+}
+
+@Composable
+private fun PokeName(
     title: String,
     modifier: Modifier = Modifier,
 ) {
@@ -116,7 +166,7 @@ private fun SessionTitle(
         text = title,
         style = KnightsTheme.typography.titleLargeB,
         color = MaterialTheme.colorScheme.onSecondaryContainer,
-        modifier = modifier.padding(end = 50.dp)
+        modifier = modifier
     )
 }
 
@@ -166,7 +216,7 @@ private fun SessionSpeakers(
 @Composable
 private fun CategoryChip() {
     TextChip(
-        text = stringResource(id = R.string.session_category),
+        text = stringResource(id = R.string.poke_category),
         containerColor = DarkGray,
         labelColor = LightGray,
     )
@@ -213,8 +263,20 @@ private fun SessionCardPreview() {
         room = Room.TRACK1,
         isBookmarked = false,
     )
+    val fakePoke = PokeSession(
+        id = "1",
+        name = "이상해씨",
+        types = listOf("풀", "독"),
+        weight = 6.9f,
+        height = 0.7f,
+        category = "씨앗 포켓몬",
+        content = "태어나서부터 얼마 동안은 등의 씨앗으로부터 영양을 공급받아 크게 성장한다.",
+        image = "https://data1.pokemonkorea.co.kr/newdata/pokedex/full/000101.png",
+        sex = listOf("남", "여"),
+        enName = "bulburgar"
+    )
 
     KnightsTheme {
-        SessionCard(fakeSession)
+        SessionCard(fakePoke)
     }
 }

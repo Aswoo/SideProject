@@ -37,13 +37,13 @@ import kotlinx.coroutines.flow.collectLatest
 
 @Composable
 internal fun BookmarkRoute(
-    onShowErrorSnackBar: (throwable: Throwable?) -> Unit,
+    onShowErrorSnackBar: suspend (String, String?) -> Boolean,
     viewModel: BookmarkViewModel = hiltViewModel()
 ) {
     val bookmarkUiState by viewModel.bookmarkUiState.collectAsStateWithLifecycle()
 
     LaunchedEffect(true) {
-        viewModel.errorFlow.collectLatest { onShowErrorSnackBar(it) }
+        viewModel.errorFlow.collectLatest { onShowErrorSnackBar(it,"error") }
     }
 
     Box(
@@ -122,9 +122,9 @@ private fun BookmarkScreen(
                     midContent = @Composable {
                         BookmarkCard(
                             tagLabel = itemState.tagLabel,
-                            room = itemState.session.room,
-                            title = itemState.session.title,
-                            speaker = itemState.speakerLabel
+                            types = itemState.session.types,
+                            title = itemState.session.name,
+                            speaker = itemState.sexLabel
                         )
                     },
                     isShowTrailingContent = itemState.isEditMode,

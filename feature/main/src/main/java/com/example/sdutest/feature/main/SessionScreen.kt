@@ -23,6 +23,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.sdutest.core.designsystem.theme.KnightsTheme
+import com.example.sdutest.core.model.PokeSession
 import com.example.sdutest.core.model.Room
 import com.example.sdutest.core.model.Session
 import com.example.sdutest.core.ui.RoomText
@@ -33,7 +34,7 @@ import kotlinx.coroutines.flow.collectLatest
 @Composable
 internal fun SessionScreen(
     onBackClick: () -> Unit,
-    onSessionClick: (Session) -> Unit,
+    onSessionClick: (PokeSession) -> Unit,
     onShowSnackbar: suspend (String, String?) -> Boolean,
     sessionUiState: SessionUiState
 ) {
@@ -66,7 +67,7 @@ internal fun SessionScreen(
 @Composable
 private fun SessionContent(
     sessionState: SessionState,
-    onSessionClick: (Session) -> Unit,
+    onSessionClick: (PokeSession) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     LazyColumn(
@@ -75,19 +76,19 @@ private fun SessionContent(
         contentPadding = PaddingValues(horizontal = 8.dp, vertical = 12.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp),
     ) {
-        sessionState.groups.forEachIndexed { index, group ->
-            val topPadding = if (index == 0) {
-                SessionTopSpace
-            } else {
-                SessionGroupSpace
-            }
-            sessionItems(
-                room = group.room,
-                items = group.sessions,
-                topPadding = topPadding,
-                onItemClick = onSessionClick,
-            )
-        }
+        sessionItems(
+            items = sessionState.sessions,
+            topPadding = SessionGroupSpace,
+            onItemClick = onSessionClick,
+        )
+//        sessionState.sessions.forEachIndexed { index, sessions ->
+//            val topPadding = if (index == 0) {
+//                SessionTopSpace
+//            } else {
+//                SessionGroupSpace
+//            }
+//
+//        }
     }
 }
 
@@ -95,16 +96,14 @@ private val SessionTopSpace = 4.dp
 private val SessionGroupSpace = 16.dp
 
 private fun LazyListScope.sessionItems(
-    room: Room,
-    items: PersistentList<Session>,
+    items: PersistentList<PokeSession>,
     topPadding: Dp,
-    onItemClick: (Session) -> Unit,
+    onItemClick: (PokeSession) -> Unit,
 ) {
     itemsIndexed(items) { index, item ->
         SessionItem(
             index = index,
             item = item,
-            room = room,
             topPadding = topPadding,
             onItemClick = onItemClick
         )
@@ -114,14 +113,13 @@ private fun LazyListScope.sessionItems(
 @Composable
 private fun SessionItem(
     index: Int,
-    item: Session,
-    room: Room,
+    item: PokeSession,
     topPadding: Dp,
-    onItemClick: (Session) -> Unit,
+    onItemClick: (PokeSession) -> Unit,
 ) {
     Column {
         if (index == 0) {
-            RoomTitle(room = room, topPadding = topPadding)
+            RoomTitle(room = Room.TRACK1, topPadding = topPadding)
         }
         SessionCard(session = item, onSessionClick = onItemClick)
     }

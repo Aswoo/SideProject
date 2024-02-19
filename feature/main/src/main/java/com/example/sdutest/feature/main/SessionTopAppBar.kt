@@ -46,7 +46,6 @@ import com.example.sdutest.core.model.Room
 import com.example.sdutest.core.ui.RoomText
 import kotlinx.collections.immutable.PersistentList
 import kotlinx.collections.immutable.toPersistentList
-import kotlinx.coroutines.launch
 
 @Composable
 internal fun SessionTopAppBar(
@@ -56,35 +55,35 @@ internal fun SessionTopAppBar(
     val enter = fadeIn()
     val exit = fadeOut()
 
-    val rooms = sessionState.rooms
+//    val rooms = sessionState.rooms
     val coroutineScope = rememberCoroutineScope()
 
     Box {
-        if (rooms.isNotEmpty()) {
-            AnimatedVisibility(
-                visible = !sessionState.isAtTop,
-                enter = enter,
-                exit = exit,
-            ) {
-                SessionTabRow(
-                    selectedRoom = sessionState.selectedRoom,
-                    rooms = rooms.toPersistentList(),
-                    onRoomSelect = { room ->
-                        coroutineScope.launch {
-                            sessionState.scrollTo(room)
-                        }
-                    },
-                    modifier = Modifier.statusBarsPadding(),
-                )
-            }
-        }
+//        if (rooms.isNotEmpty()) {
+//            AnimatedVisibility(
+//                visible = !sessionState.isAtTop,
+//                enter = enter,
+//                exit = exit,
+//            ) {
+//                SessionTabRow(
+//                    selectedRoom = sessionState.selectedRoom,
+//                    rooms = rooms.toPersistentList(),
+//                    onRoomSelect = { room ->
+//                        coroutineScope.launch {
+//                            sessionState.scrollTo(room)
+//                        }
+//                    },
+//                    modifier = Modifier.statusBarsPadding(),
+//                )
+//            }
+//        }
         AnimatedVisibility(
             visible = sessionState.isAtTop,
             enter = enter,
             exit = exit,
         ) {
             KnightsTopAppBar(
-                titleRes = R.string.session_title,
+                titleRes = R.string.poke_title,
                 navigationType = TopAppBarNavigationType.Close,
                 navigationIconContentDescription = null,
                 modifier = Modifier.statusBarsPadding(),

@@ -100,7 +100,7 @@ internal fun SessionDetailScreen(
     }
 
     LaunchedEffect(sessionId) {
-        viewModel.fetchSession(sessionId)
+        viewModel.fetchPokemon(sessionId)
     }
 
     LaunchedEffect(effect) {
@@ -214,11 +214,14 @@ private fun TagChips(tags: PersistentList<String?>) {
 
 @Composable
 private fun TagChip(tag: String) {
-    TextChip(
-        text = tag,
-        containerColor = DarkGray,
-        labelColor = LightGray,
-    )
+    Box(modifier = Modifier.padding(0.dp,4.dp)) {
+        TextChip(
+            text = tag,
+            containerColor = DarkGray,
+            labelColor = LightGray,
+        )
+    }
+
 }
 
 @Composable
@@ -229,7 +232,7 @@ private fun SessionDetailTitle(
     Text(
         modifier = modifier.padding(end = 64.dp),
         text = title,
-        style = KnightsTheme.typography.headlineMediumB,
+        style = KnightsTheme.typography.titleMediumB,
         color = MaterialTheme.colorScheme.onSecondaryContainer,
     )
 }

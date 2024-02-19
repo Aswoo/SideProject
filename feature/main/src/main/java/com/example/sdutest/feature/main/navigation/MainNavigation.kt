@@ -6,23 +6,22 @@ import androidx.navigation.NavOptions
 import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import com.example.sdutest.core.model.Session
+import com.example.sdutest.core.model.PokeSession
 import com.example.sdutest.feature.main.MainRouter
 import com.example.sdutest.feature.main.SessionDetailScreen
-import com.example.sdutest.feature.main.navigation.SessionRoute.detailRoute
 import com.example.sdutest.feature.main.navigation.SessionRoute.route
 
 
 fun NavController.navigateToMain(navOptions: NavOptions? = null) {
     this.navigate(route, navOptions)
 }
-fun NavController.navigateSessionDetail(sessionId: String) {
-    navigate(SessionRoute.detailRoute(sessionId))
+fun NavController.navigateSessionDetail(enName: String) {
+    navigate(SessionRoute.detailRoute(enName))
 }
 
 fun NavGraphBuilder.mainScreen(
     onBackClick: () -> Unit,
-    onSessionClick: (Session) -> Unit,
+    onSessionClick: (PokeSession) -> Unit,
     onShowSnackbar: suspend (String, String?) -> Boolean,
 ) {
     composable(route = SessionRoute.route) {
@@ -50,5 +49,5 @@ fun NavGraphBuilder.mainScreen(
 }
 object SessionRoute {
     const val route: String = "main_route"
-    fun detailRoute(sessionId: String): String = "$route/$sessionId"
+    fun detailRoute(enName: String): String = "$route/$enName"
 }

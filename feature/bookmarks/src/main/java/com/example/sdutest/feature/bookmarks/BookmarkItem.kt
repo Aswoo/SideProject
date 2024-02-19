@@ -103,7 +103,7 @@ private fun BookmarkItemPreview() {
                 midContent = @Composable {
                     BookmarkCard(
                         tagLabel = "효율적인 코드 베이스",
-                        room = Room.TRACK2,
+                        types = listOf("폴","독"),
                         title = "Jetpack Compose에 있는 것, 없는것",
                         speaker = "홍길동"
                     )
@@ -122,7 +122,7 @@ private fun BookmarkItemPreview() {
                 midContent = @Composable {
                     BookmarkCard(
                         tagLabel = "효율적인 코드 베이스",
-                        room = Room.TRACK2,
+                        types = listOf("폴","독"),
                         title = "Jetpack Compose에 있는 것, 없는것",
                         speaker = "홍길동"
                     )

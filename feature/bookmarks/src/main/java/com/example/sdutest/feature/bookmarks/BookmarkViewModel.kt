@@ -18,8 +18,8 @@ class BookmarkViewModel @Inject constructor(
     private val getBookmarkedSessionsUseCase: GetBookmarkedSessionsUseCase
 ) : ViewModel() {
 
-    private val _errorFlow = MutableSharedFlow<Throwable>()
-    val errorFlow: SharedFlow<Throwable> get() = _errorFlow
+    private val _errorFlow = MutableSharedFlow<String>()
+    val errorFlow: SharedFlow<String> get() = _errorFlow
 
     private val _bookmarkUiState = MutableStateFlow<BookmarkUiState>(BookmarkUiState.Loading)
     val bookmarkUiState: StateFlow<BookmarkUiState> = _bookmarkUiState
@@ -58,7 +58,7 @@ class BookmarkViewModel @Inject constructor(
                     }
                 }
             }.catch { throwable ->
-                _errorFlow.emit(throwable)
+                _errorFlow.emit(throwable.message.toString())
             }.collect { _bookmarkUiState.value = it }
         }
     }

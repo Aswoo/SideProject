@@ -28,7 +28,7 @@ import com.example.sdutest.core.ui.RoomText
 internal fun BookmarkCard(
     modifier: Modifier = Modifier,
     tagLabel: String,
-    room: Room,
+    types: List<String>,
     title: String,
     speaker: String
 ) {
@@ -55,8 +55,8 @@ internal fun BookmarkCard(
                 style = KnightsTheme.typography.labelSmallM,
                 color = DarkGray
             )
-            RoomText(
-                room,
+            Text(
+                "룸이었던곳",
                 style = KnightsTheme.typography.labelSmallM,
                 color = DarkGray
             )
@@ -82,10 +82,10 @@ private fun BookmarkCardPreview() {
     KnightsTheme {
         Box {
             BookmarkCard(
-                tagLabel = "효율적인 코드 베이스",
-                room = Room.TRACK2,
-                title = "Jetpack Compose에 있는 것, 없는것",
-                speaker = "홍길동"
+                tagLabel = "풀,독",
+                types = listOf("풀,독"),
+                title = "1",
+                speaker = "이상해씨"
             )
         }
     }

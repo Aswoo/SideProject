@@ -41,9 +41,9 @@ class SessionDetailViewModel @Inject constructor(
         }
     }
 
-    fun fetchSession(sessionId: String) {
+    fun fetchPokemon(enName: String) {
         viewModelScope.launch {
-            val session = getPokemonUseCase("ditto")
+            val session = getPokemonUseCase(enName)
             _sessionUiState.value = SessionDetailUiState.Success(session)
         }
     }
