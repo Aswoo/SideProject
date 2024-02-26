@@ -35,6 +35,7 @@ dependencies {
 
     implementation(projects.feature.main)
     implementation(projects.feature.bookmarks)
+    implementation(projects.feature.setting)
 
     implementation(libs.coil.kt)
 

@@ -10,8 +10,10 @@ import com.example.sdutest.core.data.api.fake.AssetsGithubRawApi
 import com.example.sdutest.core.data.api.fake.FakeAssetManager
 import com.example.sdutest.core.data.repository.DefaultPokeRepository
 import com.example.sdutest.core.data.repository.DefaultSessionRepository
+import com.example.sdutest.core.data.repository.DefaultSettingsRepository
 import com.example.sdutest.core.data.repository.PokemonRepository
 import com.example.sdutest.core.data.repository.SessionRepository
+import com.example.sdutest.core.data.repository.SettingsRepository
 import com.example.sdutest.core.datastore.datasource.SessionPreferencesDataSource
 //import com.droidknights.app2023.core.data.api.GithubRawApi
 //import com.example.sdutest.core.data.api.fake.AssetsGithubRawApi
@@ -56,6 +58,9 @@ internal abstract class DataModule {
 
     @Binds
     abstract fun bindSessionRepository(impl: DefaultSessionRepository): SessionRepository
+
+    @Binds
+    abstract fun bindSettingRepository(impl: DefaultSettingsRepository): SettingsRepository
 
     @Binds
     abstract fun bindPokemonRepository(impl: DefaultPokeRepository): PokemonRepository

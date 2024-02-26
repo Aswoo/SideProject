@@ -10,6 +10,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navOptions
 import com.example.sdutest.feature.bookmarks.navigation.navigateToBookmarks
 import com.example.sdutest.feature.main.navigation.navigateToMain
+import com.example.sdutest.feature.setting.navigation.navigateToSetting
 import com.example.sdutest.ui.MainTab
 
 internal class MainNavigator(
@@ -36,7 +37,7 @@ internal class MainNavigator(
         }
 
         when (tab) {
-            MainTab.SETTING -> navController.navigateToMain(navOptions)
+            MainTab.SETTING -> navController.navigateToSetting(navOptions)
             MainTab.HOME -> navController.navigateToMain(navOptions)
             MainTab.BOOKMARK -> navController.navigateToBookmarks(navOptions)
         }

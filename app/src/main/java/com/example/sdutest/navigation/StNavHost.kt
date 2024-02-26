@@ -27,6 +27,7 @@ import com.example.sdutest.feature.bookmarks.navigation.navigateToBookmarks
 import com.example.sdutest.feature.main.navigation.SessionRoute
 import com.example.sdutest.feature.main.navigation.mainScreen
 import com.example.sdutest.feature.main.navigation.navigateSessionDetail
+import com.example.sdutest.feature.setting.navigation.settingScreen
 
 
 /**
@@ -42,6 +43,7 @@ fun NiaNavHost(
     onShowSnackbar: suspend (String, String?) -> Boolean,
     modifier: Modifier = Modifier,
     startDestination: String = SessionRoute.route,
+    onChangeDarkTheme: (Boolean) -> Unit
 ) {
     NavHost(
         navController = navController,
@@ -60,6 +62,11 @@ fun NiaNavHost(
             },
             onShowSnackbar = onShowSnackbar,
         )
+        settingScreen(
+            onChangeDarkTheme = onChangeDarkTheme
+        )
+
+
 //        searchScreen(
 //            onBackClick = navController::popBackStack,
 //            onInterestsClick = { appState.navigateToTopLevelDestination(INTERESTS) },

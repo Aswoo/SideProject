@@ -3,6 +3,8 @@ package com.example.sdutest
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarDuration
@@ -18,11 +20,14 @@ import com.example.sdutest.core.designsystem.theme.KnightsTheme
 import com.example.sdutest.navigation.NiaNavHost
 import com.example.sdutest.navigation.rememberMainNavigator
 import com.example.sdutest.ui.MainTab
+import com.example.sdutest.ui.MainViewModel
 import com.example.sdutest.ui.StBottomBar
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MainActivity : ComponentActivity() {
+class MainActivity : AppCompatActivity() {
+
+    private val viewModel: MainViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -32,14 +37,23 @@ class MainActivity : ComponentActivity() {
             val navigator = rememberMainNavigator(navController = rememberNavController())
             Scaffold(
                 content = { padding ->
-                    KnightsTheme(){
-                        NiaNavHost(navController = navigator.navController, onShowSnackbar = { message, action ->
-                            snackbarHostState.showSnackbar(
-                                message = message,
-                                actionLabel = action,
-                                duration = SnackbarDuration.Short,
-                            ) == SnackbarResult.ActionPerformed
-                        }, modifier = Modifier.padding(padding))
+                    KnightsTheme() {
+                        NiaNavHost(
+                            navController = navigator.navController,
+                            onShowSnackbar = { message, action ->
+                                snackbarHostState.showSnackbar(
+                                    message = message,
+                                    actionLabel = action,
+                                    duration = SnackbarDuration.Short,
+                                ) == SnackbarResult.ActionPerformed
+                            },
+                            modifier = Modifier.padding(padding),
+                            onChangeDarkTheme = { isDarkTheme ->
+                                viewModel.updateIsDarkTheme(
+                                    isDarkTheme
+                                )
+                            }
+                        )
                     }
                 }, bottomBar = {
                     StBottomBar(
