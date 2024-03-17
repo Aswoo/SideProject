@@ -123,8 +123,8 @@ private fun BookmarkScreen(
                         BookmarkCard(
                             tagLabel = itemState.tagLabel,
                             types = itemState.session.types,
-                            title = itemState.session.name,
-                            speaker = itemState.sexLabel
+                            name = itemState.session.name,
+                            pokemonSex = itemState.sexLabel
                         )
                     },
                     isShowTrailingContent = itemState.isEditMode,

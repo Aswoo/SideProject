@@ -21,16 +21,14 @@ import com.example.sdutest.core.designsystem.theme.DarkGray
 import com.example.sdutest.core.designsystem.theme.Green04
 import com.example.sdutest.core.designsystem.theme.KnightsTheme
 import com.example.sdutest.core.designsystem.theme.Purple01
-import com.example.sdutest.core.model.Room
-import com.example.sdutest.core.ui.RoomText
 
 @Composable
 internal fun BookmarkCard(
     modifier: Modifier = Modifier,
     tagLabel: String,
     types: List<String>,
-    title: String,
-    speaker: String
+    name: String,
+    pokemonSex: String
 ) {
     Column(
         modifier = modifier
@@ -56,20 +54,20 @@ internal fun BookmarkCard(
                 color = DarkGray
             )
             Text(
-                "룸이었던곳",
+                types.joinToString(","),
                 style = KnightsTheme.typography.labelSmallM,
                 color = DarkGray
             )
         }
 
         Text(
-            text = title,
+            text = name,
             style = KnightsTheme.typography.titleSmallB,
             color = Green04
         )
 
         Text(
-            text = speaker,
+            text = pokemonSex,
             style = KnightsTheme.typography.labelSmallM,
             color = Green04
         )
@@ -84,8 +82,8 @@ private fun BookmarkCardPreview() {
             BookmarkCard(
                 tagLabel = "풀,독",
                 types = listOf("풀,독"),
-                title = "1",
-                speaker = "이상해씨"
+                name = "1",
+                pokemonSex = "이상해씨"
             )
         }
     }

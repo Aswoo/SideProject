@@ -21,8 +21,6 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.example.sdutest.core.designsystem.theme.KnightsTheme
 import com.example.sdutest.core.designsystem.theme.LightGray
-import com.example.sdutest.core.model.Room
-import java.time.LocalTime
 
 /**
  * @param leadingContent 시작지점인 왼쪽에 표현될 컨텐츠
@@ -104,8 +102,8 @@ private fun BookmarkItemPreview() {
                     BookmarkCard(
                         tagLabel = "효율적인 코드 베이스",
                         types = listOf("폴","독"),
-                        title = "Jetpack Compose에 있는 것, 없는것",
-                        speaker = "홍길동"
+                        name = "Jetpack Compose에 있는 것, 없는것",
+                        pokemonSex = "홍길동"
                     )
                 },
                 isShowTrailingContent = false,
@@ -123,8 +121,8 @@ private fun BookmarkItemPreview() {
                     BookmarkCard(
                         tagLabel = "효율적인 코드 베이스",
                         types = listOf("폴","독"),
-                        title = "Jetpack Compose에 있는 것, 없는것",
-                        speaker = "홍길동"
+                        name = "Jetpack Compose에 있는 것, 없는것",
+                        pokemonSex = "홍길동"
                     )
                 },
                 isShowTrailingContent = false,

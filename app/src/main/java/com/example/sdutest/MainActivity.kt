@@ -12,6 +12,7 @@ import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.SnackbarResult
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -22,6 +23,7 @@ import com.example.sdutest.navigation.rememberMainNavigator
 import com.example.sdutest.ui.MainTab
 import com.example.sdutest.ui.MainViewModel
 import com.example.sdutest.ui.StBottomBar
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -32,12 +34,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         setContent {
-
+            val isDarkTheme by viewModel.isDarkTheme.collectAsStateWithLifecycle(false, this)
             val snackbarHostState = remember { SnackbarHostState() }
             val navigator = rememberMainNavigator(navController = rememberNavController())
             Scaffold(
                 content = { padding ->
-                    KnightsTheme() {
+                    KnightsTheme(darkTheme = isDarkTheme) {
                         NiaNavHost(
                             navController = navigator.navController,
                             onShowSnackbar = { message, action ->

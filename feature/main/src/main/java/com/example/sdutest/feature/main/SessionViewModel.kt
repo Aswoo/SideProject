@@ -37,7 +37,7 @@ class SessionViewModel @Inject constructor(
             val bookmarkedIdsFlow = getBookmarkedSessionIdsUseCase()
 
             sessionsFlow.combine(bookmarkedIdsFlow) { sessions, bookmarkedIds ->
-                                              val enhancedSessions = sessions.map { session ->
+                val enhancedSessions = sessions.map { session ->
                     session.copy(isBookmarked = bookmarkedIds.contains(session.id))
                 }
                 SessionUiState.Sessions(

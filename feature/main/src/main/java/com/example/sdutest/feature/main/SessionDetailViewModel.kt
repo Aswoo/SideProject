@@ -8,6 +8,7 @@ import com.example.sdutest.core.domain.usecase.GetPokemonUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -27,17 +28,17 @@ class SessionDetailViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-//            combine(
-//                sessionUiState,
-//                getBookmarkedSessionIdsUseCase(),
-//            ) { sessionUiState, bookmarkIds ->
-//                when (sessionUiState) {
-//                    is SessionDetailUiState.Loading -> sessionUiState
-//                    is SessionDetailUiState.Success -> {
-////                        sessionUiState.copy(bookmarked = bookmarkIds.contains(sessionUiState.session.id))
-//                    }
-//                }
-//            }.collect { _sessionUiState.value = it }
+            combine(
+                sessionUiState,
+                getBookmarkedSessionIdsUseCase(),
+            ) { sessionUiState, bookmarkIds ->
+                when (sessionUiState) {
+                    is SessionDetailUiState.Loading -> sessionUiState
+                    is SessionDetailUiState.Success -> {
+                        sessionUiState.copy(bookmarked = bookmarkIds.contains(sessionUiState.pokemonRes.id.toString()))
+                    }
+                }
+            }.collect { _sessionUiState.value = it }
         }
     }
 

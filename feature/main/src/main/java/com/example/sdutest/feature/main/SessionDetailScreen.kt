@@ -15,7 +15,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Divider
@@ -31,13 +30,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -48,13 +44,11 @@ import com.example.sdutest.core.designsystem.component.NetworkImage
 import com.example.sdutest.core.designsystem.theme.DarkGray
 import com.example.sdutest.core.designsystem.theme.KnightsTheme
 import com.example.sdutest.core.designsystem.theme.LightGray
-import com.example.sdutest.core.model.Level
-import com.example.sdutest.core.model.Room
-import com.example.sdutest.core.model.Session
 import com.example.sdutest.core.model.Speaker
 import com.example.sdutest.core.model.Tag
 import com.example.sdutest.core.model.pokemon.GameIndices
 import com.example.sdutest.core.model.pokemon.PokemonResponse
+import com.example.sdutest.core.model.pokemon.Types
 import kotlinx.collections.immutable.PersistentList
 import kotlinx.collections.immutable.toPersistentList
 import kotlinx.coroutines.delay
@@ -160,8 +154,7 @@ private fun SessionDetailContent(session: PokemonResponse) {
             NetworkImage(
                 imageUrl = session.sprites!!.frontDefault,
                 modifier = Modifier
-                    .size(200.dp)
-                ,
+                    .size(200.dp),
                 contentScale = ContentScale.FillBounds,
                 placeholder = null,
             )
@@ -169,23 +162,21 @@ private fun SessionDetailContent(session: PokemonResponse) {
             NetworkImage(
                 imageUrl = session.sprites!!.backDefault,
                 modifier = Modifier
-                    .size(200.dp)
-                ,
+                    .size(200.dp),
                 contentScale = ContentScale.FillBounds,
                 placeholder = null,
             )
         }
         SessionChips(session = session.gameIndices)
-        if (session.id != null) {
-            Spacer(modifier = Modifier.height(16.dp))
-            SessionOverview(content = session.name.toString())
-        }
-        Spacer(modifier = Modifier.height(40.dp))
-
+        Spacer(modifier = Modifier.height(20.dp))
         Divider(thickness = 1.dp, color = MaterialTheme.colorScheme.outline)
-        Spacer(modifier = Modifier.height(40.dp))
-
-//        SessionDetailSpeaker(session.types.first().type.name)
+        Spacer(modifier = Modifier.height(20.dp))
+        SessionDetailSpeaker(
+            pokeId = session.id,
+            pokeTypes = session.types.toList(),
+            pokeHeight = session.height,
+            pokeWeight = session.weight,
+        )
     }
 }
 
@@ -193,15 +184,17 @@ private fun SessionDetailContent(session: PokemonResponse) {
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 private fun SessionChips(session: List<GameIndices>) {
-    val tagList = session.map { it.version!!.name }.toPersistentList()
-    FlowRow(
-        horizontalArrangement = Arrangement.spacedBy(8.dp),
-        verticalAlignment = Alignment.CenterVertically,
-    ) {
-//        TrackChip(room = session.version)
-//        TimeChip(dateTime = session.startTime)
-        TagChips(tags = tagList)
+    Column {
+        Text(text = "출현 버전", style = KnightsTheme.typography.titleLargeM)
+        val tagList = session.map { it.version!!.name }.toPersistentList()
+        FlowRow(
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            TagChips(tags = tagList)
+        }
     }
+
 }
 
 @Composable
@@ -214,7 +207,7 @@ private fun TagChips(tags: PersistentList<String?>) {
 
 @Composable
 private fun TagChip(tag: String) {
-    Box(modifier = Modifier.padding(0.dp,4.dp)) {
+    Box(modifier = Modifier.padding(0.dp, 4.dp)) {
         TextChip(
             text = tag,
             containerColor = DarkGray,
@@ -233,33 +226,23 @@ private fun SessionDetailTitle(
         modifier = modifier.padding(end = 64.dp),
         text = title,
         style = KnightsTheme.typography.titleMediumB,
-        color = MaterialTheme.colorScheme.onSecondaryContainer,
+        color = MaterialTheme.colorScheme.onSurface,
     )
 }
 
+//session.id,session.types,session.height,session.weight
 @Composable
 private fun SessionDetailSpeaker(
-    speaker: Speaker,
+    pokeId: Int?,
+    pokeTypes: List<Types>,
+    pokeHeight: Int?,
+    pokeWeight: Int?,
     modifier: Modifier = Modifier,
 ) {
     Column(modifier = modifier) {
-        NetworkImage(
-            imageUrl = speaker.imageUrl,
-            modifier = Modifier
-                .size(108.dp)
-                .clip(CircleShape),
-            placeholder = null
-        )
-
-        Spacer(Modifier.height(16.dp))
 
         Text(
-            text = stringResource(id = R.string.session_detail_speaker),
-            style = KnightsTheme.typography.labelSmallM,
-            color = MaterialTheme.colorScheme.onSecondaryContainer,
-        )
-        Text(
-            text = speaker.name,
+            text = "ID : $pokeId",
             style = KnightsTheme.typography.titleMediumB,
             color = MaterialTheme.colorScheme.onSecondaryContainer,
         )
@@ -267,10 +250,21 @@ private fun SessionDetailSpeaker(
         Spacer(Modifier.height(16.dp))
 
         Text(
-            text = speaker.introduction,
-            style = KnightsTheme.typography.titleSmallR140,
+            text = "Type : ${pokeTypes.joinToString(",") { it.type?.name!! }} ",
+            style = KnightsTheme.typography.titleMediumB,
             color = MaterialTheme.colorScheme.onSecondaryContainer,
         )
+        Text(
+            text = "Height : $pokeHeight m",
+            style = KnightsTheme.typography.titleMediumB,
+            color = MaterialTheme.colorScheme.onSecondaryContainer,
+        )
+        Text(
+            text = "Weight : $pokeWeight kg",
+            style = KnightsTheme.typography.titleMediumB,
+            color = MaterialTheme.colorScheme.onSecondaryContainer,
+        )
+        Spacer(Modifier.height(16.dp))
     }
 }
 
@@ -304,51 +298,6 @@ private fun BookmarkToggleButton(
     }
 }
 
-private val SampleSessionHasContent = Session(
-    id = "2",
-    title = "세션 제목은 세션 제목 - 개요 있음",
-    content = "세션에 대한 소개와 세션에서의 장단점과 세션을 실제로 사용한 사례와 세션 내용에 대한 QnA 진행",
-    speakers = listOf(
-        Speaker(
-            name = "스피커1",
-            introduction = "스피커1 에 대한 소개",
-            imageUrl = "",
-        ),
-    ),
-    level = Level.ADVANCED,
-    tags = listOf(Tag("Dev Environment")),
-    room = Room.TRACK1,
-    startTime = LocalDateTime.parse("2023-09-12T11:00:00.000"),
-    endTime = LocalDateTime.parse("2023-09-12T11:30:00.000"),
-    isBookmarked = false
-)
-
-private val SampleSessionNoContent = Session(
-    id = "2",
-    title = "세션 제목은 세션 제목 - 개요 없음",
-    content = "",
-    speakers = listOf(
-        Speaker(
-            name = "스피커1",
-            introduction = "스피커1 에 대한 소개",
-            imageUrl = "",
-        ),
-    ),
-    level = Level.ADVANCED,
-    tags = listOf(Tag("Dev Environment")),
-    room = Room.TRACK1,
-    startTime = LocalDateTime.parse("2023-09-12T11:00:00.000"),
-    endTime = LocalDateTime.parse("2023-09-12T11:30:00.000"),
-    isBookmarked = true
-)
-
-class SessionDetailContentProvider : PreviewParameterProvider<Session> {
-    override val values: Sequence<Session> = sequenceOf(
-        SampleSessionNoContent,
-        SampleSessionHasContent
-    )
-}
-
 @Preview
 @Composable
 private fun SessionDetailTopAppBarPreview() {
@@ -363,36 +312,11 @@ private fun SessionDetailTopAppBarPreview() {
     }
 }
 
-//@Preview
-//@Composable
-//private fun SessionDetailContentPreview(
-//    @PreviewParameter(SessionDetailContentProvider::class) session: Session
-//) {
-//    KnightsTheme {
-//        SessionDetailContent(session = session)
-//    }
-//}
 
 @Preview
 @Composable
 private fun SessionDetailTitlePreview() {
     KnightsTheme {
-        SessionDetailTitle(title = SampleSessionHasContent.title)
-    }
-}
-
-@Preview
-@Composable
-private fun SessionDetailSpeakerPreview() {
-    KnightsTheme {
-        SessionDetailSpeaker(SampleSessionHasContent.speakers.first())
-    }
-}
-
-@Preview
-@Composable
-private fun SessionOverviewPreview() {
-    KnightsTheme {
-        SessionOverview(SampleSessionHasContent.content)
+        SessionDetailTitle(title = "sample detail title")
     }
 }

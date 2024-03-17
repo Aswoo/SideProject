@@ -77,7 +77,7 @@ fun KnightsTopAppBar(
             }
             Text(
                 text = stringResource(id = titleRes),
-                style = KnightsTheme.typography.titleSmallM,
+                style = KnightsTheme.typography.titleLargeM,
                 modifier = Modifier.align(Alignment.Center)
             )
         }
