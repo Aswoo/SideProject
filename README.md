@@ -3,7 +3,7 @@
 
 poke api를 사용해 포켓몬 정보를 얻어오고 북마크로 포켓몬을 지정
 
-| ![image](/Users/sdu/AndroidStudioProjects/SideProject/image/setting.jpeg) | ![image](/Users/sdu/AndroidStudioProjects/SideProject/image/main.jpeg) | ![image](/Users/sdu/AndroidStudioProjects/SideProject/image/detail.jpeg) | ![image](/Users/sdu/AndroidStudioProjects/SideProject/image/bookmark.jpeg) |
+| ![image](https://github.com/Aswoo/SideProject/blob/main/image/setting.jpeg) | ![image](https://github.com/Aswoo/SideProject/blob/main/image/main.jpeg) | ![image](https://github.com/Aswoo/SideProject/blob/main/image/detail.jpeg) | ![image](https://github.com/Aswoo/SideProject/blob/main/image/bookmark.jpeg) |
 | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
 
 
