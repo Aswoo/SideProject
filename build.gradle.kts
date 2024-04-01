@@ -19,6 +19,6 @@ plugins {
     alias(libs.plugins.verify.detekt) apply false
 }
 
-//apply {
-//    from("gradle/dependencyGraph.gradle")
-//}
+apply {
+    from("gradle/projectDependencyGraph.gradle")
+}

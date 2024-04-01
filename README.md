@@ -19,7 +19,7 @@ poke api를 사용해 포켓몬 정보를 얻어오고 북마크로 포켓몬을
 - Kotlin Language : 1.8.21
 
 ### Language
-
+d
 - Kotlin
 
 ### Libraries
@@ -44,7 +44,25 @@ poke api를 사용해 포켓몬 정보를 얻어오고 북마크로 포켓몬을
 - JUnit4
 - Mockk
 
-#### Dark Thema (TODO)
+#### Gradle Dependency
+- Gradle Version Catalog 를 활용하여 종속성과 플러그인을 관리
 
-- Dark Mode에 따른 UI 변화
+자세한 내용은 [libs.versions.toml](https://github.com/Aswoo/SideProject/blob/main/gradle/libs.versions.toml)
+
+#### Dark Theme (TODO)
+
+- Dark Mode 에 따른 UI 변화
+
+
+### Architecture
+- Layer
+- 본 프로젝트는 Layered Architecture 형태 
+- 현재 Presentation/Domain/Data 레이어 구조
+- ![image](https://github.com/Aswoo/SideProject/image/mvvm-diagram.webp)
+
+### Module
+- 본 프로젝트는 Multi-module 구조이며 각 Feature마다 모듈 형태로 구성
+- ![image](https://github.com/Aswoo/SideProject/project.dot.png)
+
+
 
