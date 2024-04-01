@@ -118,9 +118,6 @@ private fun SessionItem(
     onItemClick: (PokeSession) -> Unit,
 ) {
     Column {
-        if (index == 0) {
-            RoomTitle(room = Room.TRACK1, topPadding = topPadding)
-        }
         SessionCard(session = item, onSessionClick = onItemClick)
     }
 }

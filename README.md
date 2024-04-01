@@ -1,6 +1,13 @@
 # SideProject
 최신 기술 연습과 적용을 위해 만든 프로젝트
 
+poke api를 사용해 포켓몬 정보를 얻어오고 북마크로 포켓몬을 지정
+
+| ![image](/Users/sdu/AndroidStudioProjects/SideProject/image/setting.jpeg) | ![image](/Users/sdu/AndroidStudioProjects/SideProject/image/main.jpeg) | ![image](/Users/sdu/AndroidStudioProjects/SideProject/image/detail.jpeg) | ![image](/Users/sdu/AndroidStudioProjects/SideProject/image/bookmark.jpeg) |
+| ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+
+
+
 ## Development
 
 ### Required
@@ -36,3 +43,8 @@
 - Compose Test(UI, Navigation)
 - JUnit4
 - Mockk
+
+#### Dark Thema (TODO)
+
+- Dark Mode에 따른 UI 변화
+
