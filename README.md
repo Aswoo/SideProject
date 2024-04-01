@@ -58,11 +58,11 @@ d
 - Layer
 - 본 프로젝트는 Layered Architecture 형태 
 - 현재 Presentation/Domain/Data 레이어 구조
-- ![image](https://github.com/Aswoo/SideProject/image/mvvm-diagram.webp)
+- ![image](https://github.com/Aswoo/SideProject/blob/main/image/mvvm-diagram.webp)
 
 ### Module
 - 본 프로젝트는 Multi-module 구조이며 각 Feature마다 모듈 형태로 구성
-- ![image](https://github.com/Aswoo/SideProject/project.dot.png)
+- ![image](https://github.com/Aswoo/SideProject/blob/main/project.dot.png)
 
 
 
